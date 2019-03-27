@@ -2,6 +2,42 @@
 <html lang="en-US">
   <head>
     <meta charset="UTF-8">
+    <script>
+function setCookie(cname,cvalue,exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function checkCookie() {
+  var user=getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+     user = prompt("We use your name to personalise STREAM! Enter your name, please:","");
+     if (user != "" && user != null) {
+       setCookie("username", user, 30);
+     }
+  }
+}
+</script>
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>STREAM Bots & Intl</title>
@@ -49,7 +85,7 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">STREAM</h1>
+      <h1 class="project-name">Hello </h1><h1 onload="checkCookie()"></h1>
     </section>
 
     <section class="main-content">
