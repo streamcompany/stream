@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
+    <script>
+    Element.prototype.setDefaultStyles = function () {
+    var element = document.createElement( this.tagName ),
+        styles = window.getComputedStyle( element ),
+        display = styles.getPropertyValue( 'display' );
+    element.style.display = 'none';
+    document.body.appendChild( element );
+    
+    for( style in styles ) {
+        this.style[styles[style]] = styles.getPropertyValue(styles[style]);   
+    };
+    
+    this.style.display = display;
+    document.body.removeChild( element );
+};
+
+document.getElementById( 'unstyled' ).setDefaultStyles();
+    </script>
     <meta charset="UTF-8">
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>STREAM Bots & Intl</title>
@@ -44,6 +62,12 @@
 .btn-group button:hover {
   background-color: #3e8e41;
 }
+#styled, #unstyled {
+border: 1px solid red;
+color: green;
+width: 100px;
+height: 50px;
+}
 </style>
   </head>
   <body>
@@ -52,7 +76,7 @@
     </section>
 
     <section class="main-content">
-      <div id="NOID">
+      <div id="unstyled">
         <script>
   (function() {
     var cx = '012222161208944868770:1louvq9ut0s';
